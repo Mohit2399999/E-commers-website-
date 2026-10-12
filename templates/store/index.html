@@ -1,0 +1,763 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXUS TECH | Full-Stack Django E-Commerce Platform</title>
+  <meta name="description" content="Discover cutting-edge electronics, audiophile sound, flagship smartphones, and ultra-performance workstations at NEXUS TECH. Built with Python, Django, MySQL/SQLite & JavaScript.">
+  <meta name="keywords" content="django, python, ecommerce, mysql, sqlite, internship project">
+  <meta name="author" content="Priyanshu - Full Stack Internship Project">
+  
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <aside class="announcement-bar" aria-label="Special Deals Announcement">
+    <div class="announcement-content">
+      <span class="announcement-badge">DJANGO POWERED</span>
+      <span>Enjoy 20% OFF on all flagship gear! Use code:</span>
+      <span class="announcement-code" id="announcementCouponBtn" title="Click to copy coupon code">PRI23</span>
+      <span style="opacity: 0.6; font-size: 0.75rem;">(Click to copy)</span>
+    </div>
+  </aside>
+
+  <!-- Sticky Glassmorphic Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="container nav-inner">
+      <!-- Brand Logo -->
+      <a href="/" class="brand-logo" id="brandLogo">
+        <div class="brand-icon">
+          <i class="fa-solid fa-bolt-lightning"></i>
+        </div>
+        <span>NEXUS<span class="accent-dot">.</span>TECH</span>
+      </a>
+
+      <!-- Segmented Pill Taskbar Navigation -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link active"><i class="fa-solid fa-compass"></i> <span>Discover</span> <span class="active-dot"></span></a></li>
+          <li><a href="#catalog" class="nav-link"><i class="fa-solid fa-cube"></i> <span>Products</span></a></li>
+          <li><a href="#deals" class="nav-link"><i class="fa-solid fa-tag"></i> <span>Deals</span></a></li>
+          <li><a href="#reviews" class="nav-link"><i class="fa-solid fa-star"></i> <span>Reviews</span></a></li>
+          <li><a href="/admin" target="_blank" class="nav-link" style="color: var(--primary);"><i class="fa-solid fa-shield-halved"></i> <span>Admin</span></a></li>
+          <li><a href="javascript:void(0)" class="nav-link" id="navTrackOrderBtn"><i class="fa-solid fa-truck-fast"></i> <span>Track</span></a></li>
+        </ul>
+      </nav>
+
+      <!-- Instant Search Bar with Live Results Dropdown -->
+      <div class="search-container" id="searchContainer">
+        <form class="search-box" id="headerSearchForm" onsubmit="handleSearchSubmit(event)">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="headerSearchInput" class="search-input" placeholder="Search gadgets, audio, laptops..." autocomplete="off">
+          <button type="button" id="clearSearchBtn" class="clear-search-btn" style="display: none;" onclick="clearSearchInput()" aria-label="Clear Search">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <span class="search-shortcut">/</span>
+        </form>
+        <!-- Live Instant Search Dropdown Results -->
+        <div class="search-dropdown-results" id="searchDropdownResults" style="display: none;"></div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button type="button" class="icon-btn" id="themeToggleBtn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+          <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+
+        <!-- Wishlist Drawer Trigger -->
+        <button type="button" class="icon-btn" id="wishlistDrawerBtn" title="View Wishlist" aria-label="Open Wishlist">
+          <i class="fa-regular fa-heart"></i>
+          <span class="badge-count" id="wishlistCountBadge" style="display: none;">0</span>
+        </button>
+
+        <!-- Cart Drawer Trigger -->
+        <button type="button" class="icon-btn" id="cartDrawerBtn" title="View Shopping Cart" aria-label="Open Shopping Cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="badge-count" id="cartCountBadge" style="display: none;">0</span>
+        </button>
+
+        <!-- User Account / Login Button -->
+        <button type="button" class="user-account-btn" id="userAuthBtn" aria-label="User Account">
+          <div class="user-avatar-mini" id="userAvatarMini">
+            <i class="fa-regular fa-user"></i>
+          </div>
+          <span id="userNameLabel">Sign In</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Slider Section -->
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <div class="hero-carousel-container">
+          <div class="hero-slider" id="heroSlider">
+            <!-- Slide 1: Nebula Aurora NC -->
+            <article class="hero-slide" style="background-image: url('{% static 'assets/hero_headphones.jpg' %}');">
+              <div class="hero-slide-overlay"></div>
+              <div class="hero-slide-content">
+                <span class="hero-tag"><i class="fa-solid fa-sparkles"></i> 2026 Innovation Award</span>
+                <h1 class="hero-title">AURORA NC.<br><span>SILENCE, PERFECTED.</span></h1>
+                <p class="hero-desc">Beryllium acoustic drivers engineered with active neural noise cancellation and 60 hours continuous battery. High-definition spatial immersion.</p>
+                <div class="hero-actions">
+                  <button type="button" class="btn-primary" onclick="quickViewProduct(1)">
+                    <i class="fa-solid fa-bag-shopping"></i> Experience Now &bull; $349.99
+                  </button>
+                  <a href="#catalog" class="btn-outline">
+                    Explore Collection <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Slide 2: Aether Chronos X1 -->
+            <article class="hero-slide" style="background-image: url('{% static 'assets/hero_smartwatch.jpg' %}');">
+              <div class="hero-slide-overlay"></div>
+              <div class="hero-slide-content">
+                <span class="hero-tag"><i class="fa-solid fa-microchip"></i> Titanium Grade 5</span>
+                <h2 class="hero-title">AETHER CHRONOS.<br><span>FUTURE. UNVEILED.</span></h2>
+                <p class="hero-desc">Forged titanium aerospace casing with micro-OLED 2000-nit display, 100-meter diving grade resistance, and clinical biometrics.</p>
+                <div class="hero-actions">
+                  <button type="button" class="btn-primary" onclick="quickViewProduct(2)">
+                    <i class="fa-solid fa-bag-shopping"></i> Buy Flagship &bull; $279.99
+                  </button>
+                  <a href="#catalog" class="btn-outline">
+                    View Specs <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Carousel Controls -->
+          <button type="button" class="carousel-nav-btn carousel-prev" id="prevSlideBtn" aria-label="Previous Slide">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button type="button" class="carousel-nav-btn carousel-next" id="nextSlideBtn" aria-label="Next Slide">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+          <div class="carousel-dots" id="carouselDots">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+          </div>
+        </div>
+
+        <!-- Value Propositions Grid -->
+        <div class="value-props-grid">
+          <div class="value-card">
+            <div class="value-icon-box"><i class="fa-solid fa-truck-fast"></i></div>
+            <div class="value-info">
+              <h4>Free Express Delivery</h4>
+              <p>On all orders above $150 worldwide</p>
+            </div>
+          </div>
+          <div class="value-card">
+            <div class="value-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="value-info">
+              <h4>2-Year Warranty</h4>
+              <p>100% authentic manufacturer guarantee</p>
+            </div>
+          </div>
+          <div class="value-card">
+            <div class="value-icon-box"><i class="fa-solid fa-rotate-left"></i></div>
+            <div class="value-info">
+              <h4>30-Day Hassle Returns</h4>
+              <p>Full instant refunds with no questions</p>
+            </div>
+          </div>
+          <div class="value-card">
+            <div class="value-icon-box"><i class="fa-solid fa-database"></i></div>
+            <div class="value-info">
+              <h4>Django ORM & MySQL</h4>
+              <p>Full database backend with REST APIs</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Catalog Section -->
+    <section class="catalog-section" id="catalog">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2>Explore Tech Collection</h2>
+            <p>Database-driven catalog for engineers, creators, and enthusiasts</p>
+          </div>
+          <div class="items-count-display" id="itemsCountDisplay">
+            Showing all items
+          </div>
+        </div>
+
+        <!-- Category Filter Pills Bar -->
+        <div class="category-pills-bar" id="categoryPillsBar">
+          <!-- Rendered via JS & Django categories -->
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="filter-toolbar">
+          <div class="filter-group">
+            <span class="filter-label"><i class="fa-solid fa-sliders"></i> Filters:</span>
+            
+            <!-- Price Slider -->
+            <div class="price-slider-box">
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Max Price:</span>
+              <input type="range" id="priceRangeSlider" class="range-slider" min="50" max="2500" step="50" value="2500">
+              <span class="price-val" id="priceValDisplay">$2,500</span>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <span class="filter-label"><i class="fa-solid fa-arrow-down-short-wide"></i> Sort:</span>
+            <select id="sortSelect" class="sort-select" aria-label="Sort products">
+              <option value="featured">Featured / Best Sellers</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="rating">Highest Customer Rating</option>
+              <option value="discount">Biggest Discount</option>
+            </select>
+
+            <button type="button" class="btn-outline" id="resetFiltersBtn" style="padding: 0.45rem 1rem; font-size: 0.8rem;">
+              <i class="fa-solid fa-rotate-left"></i> Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- Products Grid Container -->
+        <div class="products-grid" id="productsGrid">
+          <!-- Injected dynamically via JS / Django Context -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Deals of the Week & Order Tracker Section -->
+    <section class="promo-banner-section" id="deals">
+      <div class="container">
+        <div class="promo-banner-card">
+          <div>
+            <div class="promo-badge"><i class="fa-solid fa-fire"></i> Limited Time Offer</div>
+            <h3 class="promo-heading">College Tech Expo &bull;<br><span>Save Extra 20% Today</span></h3>
+            <p class="promo-desc">Apply coupon <strong style="color: var(--primary);">PRI23</strong> at checkout to unlock instant discounts across laptops, headsets, and gaming peripherals.</p>
+            
+            <!-- Live Deal Countdown -->
+            <div class="countdown-grid">
+              <div class="countdown-box">
+                <div class="count-digits" id="countHours">18</div>
+                <div class="count-label">Hours</div>
+              </div>
+              <div class="countdown-box">
+                <div class="count-digits" id="countMinutes">42</div>
+                <div class="count-label">Minutes</div>
+              </div>
+              <div class="countdown-box">
+                <div class="count-digits" id="countSeconds">59</div>
+                <div class="count-label">Seconds</div>
+              </div>
+            </div>
+
+            <button type="button" class="btn-primary" onclick="applyPromoCodeFromBanner('PRI23')">
+              <i class="fa-solid fa-tag"></i> Claim Coupon PRI23
+            </button>
+          </div>
+
+          <!-- Order Tracking Quick Card -->
+          <div class="tracking-card-box">
+            <h4 class="tracking-title"><i class="fa-solid fa-box-open" style="color: var(--primary);"></i> Live Order Tracker</h4>
+            <p class="tracking-desc">Track any existing shipment in real-time. Try sample code: <code style="color: var(--primary); cursor: pointer;" onclick="quickFillTracking('NX-9824')">NX-9824</code></p>
+            <form id="trackingForm" class="tracking-form" onsubmit="handleTrackOrderSubmit(event)">
+              <input type="text" id="trackingCodeInput" class="tracking-input" placeholder="e.g. NX-9824" required>
+              <button type="submit" class="btn-primary" style="padding: 0.65rem 1.25rem;">
+                Track
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="reviews">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2>Customer Reviews & Wall of Love</h2>
+            <p>Real feedback from engineers, students, and tech professionals</p>
+          </div>
+        </div>
+
+        <div class="testimonials-grid" id="testimonialsGrid">
+          <!-- Populated from TESTIMONIALS_DATA -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div>
+          <a href="/" class="brand-logo">
+            <div class="brand-icon"><i class="fa-solid fa-bolt-lightning"></i></div>
+            <span>NEXUS<span class="accent-dot">.</span>TECH</span>
+          </a>
+          <p class="footer-brand-bio">
+            Full-Stack E-Commerce web application engineered with Python, Django, MySQL / SQLite, Vanilla CSS3, and JavaScript.
+          </p>
+          <div class="social-links-row">
+            <a href="javascript:void(0)" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="javascript:void(0)" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="javascript:void(0)" class="social-btn" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+            <a href="javascript:void(0)" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Product Catalog</h4>
+          <ul class="footer-links-list">
+            <li><a href="javascript:void(0)" class="footer-link" onclick="filterByCategory('audio')">Audio & Sound</a></li>
+            <li><a href="javascript:void(0)" class="footer-link" onclick="filterByCategory('wearables')">Smart Wearables</a></li>
+            <li><a href="javascript:void(0)" class="footer-link" onclick="filterByCategory('laptops')">Laptops & PCs</a></li>
+            <li><a href="javascript:void(0)" class="footer-link" onclick="filterByCategory('phones')">Smartphones</a></li>
+            <li><a href="javascript:void(0)" class="footer-link" onclick="filterByCategory('gaming')">Gaming Gear</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Backend & Admin</h4>
+          <ul class="footer-links-list">
+            <li><a href="/admin" target="_blank" class="footer-link"><i class="fa-solid fa-shield-halved"></i> Django Admin Panel</a></li>
+            <li><a href="/api/products/" target="_blank" class="footer-link"><i class="fa-solid fa-code"></i> Products REST API</a></li>
+            <li><a href="javascript:void(0)" class="footer-link" onclick="openTrackingModal('NX-9824')">Track Your Order</a></li>
+            <li><a href="javascript:void(0)" class="footer-link" onclick="openCartDrawer()">Cart & Checkout</a></li>
+            <li><a href="javascript:void(0)" class="footer-link" onclick="openWishlistDrawer()">My Wishlist</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Internship Project Specs</h4>
+          <div class="project-credit-box">
+            <p><strong>Curriculum:</strong> Python, Django, MySQL, HTML, CSS, JS</p>
+            <p><strong>Developer:</strong> Priyanshu</p>
+            <p><strong>Backend:</strong> Django 5.2 ORM, ModelViewSet, Admin</p>
+            <p><strong>Database:</strong> SQLite3 / MySQL with migrations</p>
+            <p style="margin-top: 0.5rem; font-size: 0.725rem; color: var(--text-dim);">&bull; Fully aligned with Internship Training syllabus.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 NEXUS TECH &bull; Built with pride for College Internship Project Presentation.</p>
+        <div class="payment-gateways-icons">
+          <i class="fa-brands fa-cc-visa" title="Visa"></i>
+          <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
+          <i class="fa-brands fa-cc-apple-pay" title="Apple Pay"></i>
+          <i class="fa-brands fa-google-pay" title="Google Pay"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Drawer Backdrop Blur -->
+  <div class="drawer-backdrop" id="drawerBackdrop" onclick="closeAllDrawers()"></div>
+
+  <!-- Cart Slide-Over Drawer -->
+  <aside class="slide-drawer" id="cartDrawer" aria-label="Shopping Cart Drawer">
+    <div class="drawer-header">
+      <div class="drawer-title-wrap">
+        <i class="fa-solid fa-bag-shopping" style="color: var(--primary);"></i>
+        <h3>Your Cart</h3>
+        <span class="badge-count" id="cartDrawerItemCount" style="position: static;">0</span>
+      </div>
+      <button type="button" class="drawer-close-btn" onclick="closeCartDrawer()" aria-label="Close Cart">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Free Shipping Progress Bar -->
+    <div class="shipping-meter-wrap" id="shippingMeterWrap">
+      <div class="meter-text">
+        <span id="shippingMeterText">Add $150.00 more for Free Express Shipping!</span>
+        <span id="shippingMeterPercent">0%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="shippingMeterFill" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Cart Items Scrollable List -->
+    <div class="drawer-items-list" id="cartItemsList">
+      <!-- Populated via renderCart() -->
+    </div>
+
+    <!-- Cart Footer & Calculations -->
+    <div class="drawer-footer" id="cartFooter">
+      <!-- Coupon Code Section -->
+      <div id="couponArea">
+        <div class="coupon-input-wrap" id="couponInputWrap">
+          <input type="text" id="couponCodeInput" class="coupon-input" placeholder="Promo code (e.g. PRI23)">
+          <button type="button" class="btn-apply-coupon" onclick="handleApplyCoupon()">Apply</button>
+        </div>
+        <div class="active-coupon-tag" id="activeCouponTag" style="display: none;">
+          <span id="activeCouponLabel"></span>
+          <i class="fa-solid fa-xmark remove-coupon-btn" onclick="handleRemoveCoupon()" title="Remove coupon"></i>
+        </div>
+      </div>
+
+      <!-- Financial Totals Breakdown -->
+      <div class="totals-breakdown">
+        <div class="totals-row">
+          <span>Subtotal</span>
+          <span id="cartSubtotalVal">$0.00</span>
+        </div>
+        <div class="totals-row" id="discountRow" style="display: none; color: var(--success);">
+          <span>Discount Applied</span>
+          <span id="cartDiscountVal">-$0.00</span>
+        </div>
+        <div class="totals-row">
+          <span>Estimated Shipping</span>
+          <span id="cartShippingVal">$0.00</span>
+        </div>
+        <div class="totals-row">
+          <span>Sales Tax (8%)</span>
+          <span id="cartTaxVal">$0.00</span>
+        </div>
+        <div class="totals-row grand-total">
+          <span>Grand Total</span>
+          <span id="cartTotalVal" style="color: var(--primary);">$0.00</span>
+        </div>
+      </div>
+
+      <button type="button" class="btn-checkout" id="checkoutTriggerBtn" onclick="openCheckoutModal()">
+        Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Wishlist Slide-Over Drawer -->
+  <aside class="slide-drawer" id="wishlistDrawer" aria-label="Saved Wishlist Drawer">
+    <div class="drawer-header">
+      <div class="drawer-title-wrap">
+        <i class="fa-solid fa-heart" style="color: var(--accent-pink);"></i>
+        <h3>My Wishlist</h3>
+        <span class="badge-count" id="wishlistDrawerItemCount" style="position: static; background: var(--accent-pink);">0</span>
+      </div>
+      <button type="button" class="drawer-close-btn" onclick="closeWishlistDrawer()" aria-label="Close Wishlist">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="drawer-items-list" id="wishlistItemsList">
+      <!-- Populated via renderWishlist() -->
+    </div>
+  </aside>
+
+  <!-- Quick View Product Modal -->
+  <div class="modal-wrapper" id="quickViewModal" aria-modal="true" role="dialog">
+    <div class="modal-overlay" onclick="closeQuickViewModal()"></div>
+    <div class="modal-card">
+      <button type="button" class="modal-close-corner" onclick="closeQuickViewModal()" aria-label="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="quickview-layout" id="quickViewContent">
+        <!-- Rendered dynamically via quickViewProduct(id) -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Multi-Step Checkout Modal -->
+  <div class="modal-wrapper" id="checkoutModal" aria-modal="true" role="dialog">
+    <div class="modal-overlay" onclick="closeCheckoutModal()"></div>
+    <div class="modal-card checkout-modal-card">
+      <button type="button" class="modal-close-corner" onclick="closeCheckoutModal()" aria-label="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Step Indicator -->
+      <div class="checkout-step-indicator" id="checkoutStepIndicator">
+        <div class="step-node active" id="stepNode1">
+          <div class="step-circle">1</div>
+          <span>Shipping</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-node" id="stepNode2">
+          <div class="step-circle">2</div>
+          <span>Payment</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-node" id="stepNode3">
+          <div class="step-circle">3</div>
+          <span>Confirmation</span>
+        </div>
+      </div>
+
+      <!-- Step 1 Form: Shipping Details -->
+      <form id="shippingForm" onsubmit="handleShippingSubmit(event)">
+        <h3 style="font-family: var(--font-brand); font-size: 1.4rem; margin-bottom: 1.25rem;">Delivery Address</h3>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="shipFirstName">First Name</label>
+            <input type="text" id="shipFirstName" class="form-control" value="Priyanshu" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="shipLastName">Last Name</label>
+            <input type="text" id="shipLastName" class="form-control" value="Kumar" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="shipEmail">Email Address (For receipt & tracking)</label>
+          <input type="email" id="shipEmail" class="form-control" value="priyanshu.project@nexus.edu" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="shipAddress">Street Address</label>
+          <input type="text" id="shipAddress" class="form-control" value="Campus Innovation Park, Tech Block 4" required>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="shipCity">City</label>
+            <input type="text" id="shipCity" class="form-control" value="New Delhi" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="shipZip">ZIP / Postal Code</label>
+            <input type="text" id="shipZip" class="form-control" value="110001" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-checkout" style="margin-top: 1rem;">
+          Continue to Payment &bull; <span id="checkoutStep1Total">$0.00</span>
+        </button>
+      </form>
+
+      <!-- Step 2 Form: Payment Method Selection -->
+      <div id="paymentStep" style="display: none;">
+        <h3 style="font-family: var(--font-brand); font-size: 1.4rem; margin-bottom: 1.25rem;">Payment Method</h3>
+        
+        <div class="payment-methods-grid">
+          <div class="payment-option-card selected" id="payMethodCard" onclick="selectPaymentMethod('card')">
+            <i class="fa-regular fa-credit-card"></i>
+            <p>Debit / Credit</p>
+          </div>
+          <div class="payment-option-card" id="payMethodUPI" onclick="selectPaymentMethod('upi')">
+            <i class="fa-solid fa-qrcode"></i>
+            <p>UPI / QR Scan</p>
+          </div>
+          <div class="payment-option-card" id="payMethodCOD" onclick="selectPaymentMethod('cod')">
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+            <p>Cash on Delivery</p>
+          </div>
+        </div>
+
+        <!-- Credit Card Live Interactive Graphic -->
+        <div id="cardPaymentBox">
+          <div class="credit-card-preview">
+            <div class="cc-chip"></div>
+            <div class="cc-number" id="ccDisplayNumber">&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 4242</div>
+            <div class="cc-bottom">
+              <div>
+                <span style="font-size: 0.65rem; opacity: 0.7;">Card Holder</span>
+                <div id="ccDisplayName" style="font-weight: 700;">PRIYANSHU KUMAR</div>
+              </div>
+              <div>
+                <span style="font-size: 0.65rem; opacity: 0.7;">Expires</span>
+                <div id="ccDisplayExpiry" style="font-weight: 700;">12/28</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="ccInputNumber">Card Number</label>
+            <input type="text" id="ccInputNumber" class="form-control" maxlength="19" placeholder="4242 4242 4242 4242" value="4242 8821 9934 1045" oninput="updateCardPreview()">
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="ccInputExpiry">Expiry Date</label>
+              <input type="text" id="ccInputExpiry" class="form-control" maxlength="5" placeholder="MM/YY" value="08/28" oninput="updateCardPreview()">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ccInputCvv">CVV Code</label>
+              <input type="password" id="ccInputCvv" class="form-control" maxlength="3" placeholder="123" value="789">
+            </div>
+          </div>
+        </div>
+
+        <!-- UPI / QR Preview Box -->
+        <div id="upiPaymentBox" style="display: none; text-align: center; padding: 1.5rem; background: var(--bg-card); border-radius: var(--radius-md); border: 1px dashed var(--border-highlight); margin-bottom: 1.5rem;">
+          <i class="fa-solid fa-qrcode" style="font-size: 6rem; color: var(--primary); margin-bottom: 1rem;"></i>
+          <h4 style="margin-bottom: 0.25rem;">Scan & Pay with Any UPI App</h4>
+          <p style="font-size: 0.8rem; color: var(--text-muted);">GPay, PhonePe, Paytm, BHIM</p>
+          <div style="font-family: monospace; font-size: 0.85rem; margin-top: 0.5rem; color: var(--primary);">nexus.pay@icici</div>
+        </div>
+
+        <!-- COD Info Box -->
+        <div id="codPaymentBox" style="display: none; padding: 1.5rem; background: var(--bg-card); border-radius: var(--radius-md); border: 1px dashed var(--border-subtle); margin-bottom: 1.5rem;">
+          <p style="font-size: 0.9rem; color: var(--text-main);"><i class="fa-solid fa-circle-check" style="color: var(--success); margin-right: 0.5rem;"></i> Cash on delivery is available for this address. Pay upon receiving package.</p>
+        </div>
+
+        <div style="display: flex; gap: 1rem;">
+          <button type="button" class="btn-outline" onclick="goToCheckoutStep(1)" style="flex: 1;">
+            <i class="fa-solid fa-arrow-left"></i> Back
+          </button>
+          <button type="button" class="btn-checkout" onclick="placeOrderFinal()" style="flex: 2;">
+            <i class="fa-solid fa-shield-halved"></i> Confirm & Pay in Django <span id="checkoutFinalTotal"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 3: Order Success Screen -->
+      <div id="orderSuccessStep" style="display: none;">
+        <div class="order-success-card">
+          <div class="success-icon-box">
+            <i class="fa-solid fa-check"></i>
+          </div>
+          <h3 style="font-family: var(--font-brand); font-size: 1.85rem; margin-bottom: 0.5rem;">Order Saved in Django Database!</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">A new Order record has been created in your backend database.</p>
+          
+          <div class="order-id-badge" id="confirmedOrderIdBadge">ORDER #NX-88219</div>
+
+          <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; text-align: left; margin-bottom: 1.5rem; font-size: 0.875rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span style="color: var(--text-muted);">Recipient:</span>
+              <strong id="invoiceRecipient">Priyanshu Kumar</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span style="color: var(--text-muted);">Estimated Delivery:</span>
+              <strong>Within 2-3 Business Days</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span style="color: var(--text-muted);">Total Paid:</span>
+              <strong style="color: var(--primary);" id="invoiceAmountPaid">$0.00</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: var(--text-muted);">Tracking ID:</span>
+              <strong id="invoiceTrackingId" style="color: var(--primary); font-family: monospace;">NX-88219</strong>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <button type="button" class="btn-primary" onclick="printInvoice()">
+              <i class="fa-solid fa-print"></i> Print / Save Invoice
+            </button>
+            <button type="button" class="btn-outline" onclick="trackFromOrderSuccess()">
+              <i class="fa-solid fa-truck-fast"></i> Track Shipment
+            </button>
+            <button type="button" class="btn-outline" onclick="closeCheckoutModal()">
+              Continue Shopping
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Shipment Tracking Modal -->
+  <div class="modal-wrapper" id="trackingModal" aria-modal="true" role="dialog">
+    <div class="modal-overlay" onclick="closeTrackingModal()"></div>
+    <div class="modal-card" style="max-width: 580px; padding: 2.25rem;">
+      <button type="button" class="modal-close-corner" onclick="closeTrackingModal()" aria-label="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+        <i class="fa-solid fa-truck-ramp-box" style="font-size: 1.5rem; color: var(--primary);"></i>
+        <div>
+          <h3 style="font-family: var(--font-brand); font-size: 1.4rem;">Shipment Tracking</h3>
+          <span style="font-size: 0.8rem; color: var(--text-muted);" id="trackingModalIdLabel">Tracking ID: NX-9824</span>
+        </div>
+      </div>
+
+      <!-- Animated Status Steps -->
+      <div class="timeline-stepper">
+        <div class="timeline-item done">
+          <div class="timeline-marker"><i class="fa-solid fa-check"></i></div>
+          <div class="timeline-body">
+            <h4>Order Verified in Django DB</h4>
+            <p>Database transaction committed. Fulfillment status updated.</p>
+            <span>Today, 09:15 AM</span>
+          </div>
+        </div>
+        <div class="timeline-item done">
+          <div class="timeline-marker"><i class="fa-solid fa-box"></i></div>
+          <div class="timeline-body">
+            <h4>Custom Packed with Fragile Seal</h4>
+            <p>Quality check passed. Package sealed in anti-static protective enclosure.</p>
+            <span>Today, 11:30 AM</span>
+          </div>
+        </div>
+        <div class="timeline-item active">
+          <div class="timeline-marker"><i class="fa-solid fa-truck-fast"></i></div>
+          <div class="timeline-body">
+            <h4>In Transit &bull; Express Air Carrier</h4>
+            <p>Departed Sorting Hub facility. Out for regional transit station.</p>
+            <span style="color: var(--primary); font-weight: 600;">In Progress (Current Stage)</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker"><i class="fa-solid fa-house-chimney"></i></div>
+          <div class="timeline-body">
+            <h4>Out for Delivery & Handover</h4>
+            <p>Package will be delivered directly to your doorstep with OTP verification.</p>
+            <span>Expected Tomorrow, by 05:00 PM</span>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn-outline" onclick="closeTrackingModal()" style="width: 100%;">
+        Close Tracking Window
+      </button>
+    </div>
+  </div>
+
+  <!-- User Authentication Modal (Sign In / Register) -->
+  <div class="modal-wrapper" id="authModal" aria-modal="true" role="dialog">
+    <div class="modal-overlay" onclick="closeAuthModal()"></div>
+    <div class="modal-card" style="max-width: 440px; padding: 2.25rem;">
+      <button type="button" class="modal-close-corner" onclick="closeAuthModal()" aria-label="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <div class="brand-icon" style="margin: 0 auto 0.75rem;"><i class="fa-solid fa-bolt-lightning"></i></div>
+        <h3 style="font-family: var(--font-brand); font-size: 1.5rem;">Django Authentication</h3>
+        <p style="font-size: 0.8rem; color: var(--text-muted);">Sign in to access student perks & manage orders</p>
+      </div>
+
+      <form id="authForm" onsubmit="handleAuthSubmit(event)">
+        <div class="form-group">
+          <label class="form-label" for="authEmail">Email Address</label>
+          <input type="email" id="authEmail" class="form-control" value="priyanshu@nexus.io" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="authPassword">Password</label>
+          <input type="password" id="authPassword" class="form-control" value="Demo1234!" required>
+        </div>
+
+        <button type="submit" class="btn-checkout" style="margin-top: 1rem;">
+          Sign In
+        </button>
+
+        <div style="margin-top: 1.25rem; text-align: center; font-size: 0.8rem; color: var(--text-muted);">
+          <span>Demo College Account: Auto-filled for instant testing</span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- JavaScript Applications -->
+  <script src="{% static 'js/products.js' %}"></script>
+  <script src="{% static 'js/cart.js' %}"></script>
+  <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>
