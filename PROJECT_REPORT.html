@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Report - E-Commerce Web Application | Priyanshu Suryawanshi</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            color: #111;
+            background-color: #f3f4f6;
+            line-height: 1.6;
+            font-size: 13pt;
+        }
+
+        /* Floating action bar for browser preview */
+        .no-print-bar {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            gap: 12px;
+            background: #1f2937;
+            padding: 10px 18px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+            font-family: Arial, sans-serif;
+        }
+
+        .btn-action {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-action:hover {
+            background: #1d4ed8;
+        }
+
+        /* A4 Page container */
+        .report-page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 22mm 22mm 22mm 26mm;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Running Header and Footer */
+        .page-header {
+            font-family: Arial, sans-serif;
+            font-size: 9.5pt;
+            color: #555;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+            margin-bottom: 22px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .page-footer {
+            margin-top: auto;
+            padding-top: 6px;
+            border-top: 1px solid #ccc;
+            font-family: Arial, sans-serif;
+            font-size: 9.5pt;
+            color: #444;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Cover Page Specific */
+        .cover-page {
+            border: 2px solid #222;
+            margin: 20px auto;
+            padding: 22mm 20mm;
+            text-align: center;
+            justify-content: space-between;
+        }
+
+        .cover-title {
+            font-size: 24pt;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #000;
+            line-height: 1.3;
+        }
+
+        .cover-on {
+            font-size: 13pt;
+            font-weight: normal;
+            margin: 12px 0 6px;
+        }
+
+        .cover-project-name {
+            font-size: 21pt;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 15px;
+        }
+
+        .cover-sub-info {
+            font-size: 13pt;
+            margin: 14px 0;
+            line-height: 1.5;
+        }
+
+        .cover-student-name {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .cover-guides-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 22px 0 15px;
+            text-align: center;
+            font-size: 12pt;
+        }
+
+        .guide-box strong {
+            display: block;
+            font-size: 13pt;
+            margin: 4px 0 2px;
+        }
+
+        .college-emblem {
+            margin: 8px auto;
+            width: 85px;
+            height: 85px;
+        }
+
+        .cover-college-name {
+            font-size: 16pt;
+            font-weight: bold;
+            margin: 3px 0;
+        }
+
+        /* Headings */
+        h1.chapter-title {
+            font-size: 18pt;
+            font-weight: bold;
+            border-bottom: 2px solid #222;
+            padding-bottom: 5px;
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        h2.section-title {
+            font-size: 14.5pt;
+            font-weight: bold;
+            margin: 18px 0 8px;
+            text-align: left;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 12px;
+            text-indent: 26px;
+            font-size: 13pt;
+        }
+
+        p.no-indent {
+            text-indent: 0;
+        }
+
+        ul, ol {
+            margin: 8px 0 14px 34px;
+            font-size: 13pt;
+        }
+
+        li {
+            margin-bottom: 6px;
+            text-align: justify;
+        }
+
+        /* Tables */
+        table.formal-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 12pt;
+        }
+
+        table.formal-table th, table.formal-table td {
+            border: 1px solid #333;
+            padding: 8px 10px;
+            vertical-align: top;
+        }
+
+        table.formal-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .table-caption {
+            font-weight: bold;
+            font-size: 11.5pt;
+            margin: 5px 0 14px;
+            text-align: center;
+        }
+
+        /* Code Block */
+        pre.code-block {
+            background: #fdfdfd;
+            border: 1px solid #bbb;
+            padding: 10px 12px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 9.5pt;
+            line-height: 1.4;
+            color: #111;
+            margin: 10px 0 6px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .listing-caption {
+            font-family: Arial, sans-serif;
+            font-size: 10pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 14px;
+        }
+
+        /* Certificate */
+        .cert-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .cert-society {
+            font-size: 13.5pt;
+            font-weight: bold;
+        }
+
+        .cert-dept {
+            font-size: 15pt;
+            font-weight: bold;
+        }
+
+        .cert-college {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .cert-title {
+            font-size: 20pt;
+            font-weight: bold;
+            text-decoration: underline;
+            margin: 15px 0 20px;
+        }
+
+        .sign-line {
+            display: inline-block;
+            border-top: 1px solid #000;
+            width: 180px;
+            margin-bottom: 5px;
+        }
+
+        /* Diagrams */
+        .diagram-box {
+            background: #fafafa;
+            border: 1px solid #999;
+            padding: 12px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 9.5pt;
+            line-height: 1.35;
+            margin: 12px 0;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        /* Print Media Styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .no-print, .no-print-bar {
+                display: none !important;
+            }
+
+            .report-page {
+                width: 100%;
+                min-height: 100vh;
+                margin: 0;
+                padding: 18mm 16mm 18mm 20mm;
+                box-shadow: none;
+                page-break-after: always;
+                break-after: page;
+            }
+
+            .cover-page {
+                border: 2px solid black;
+                padding: 18mm 14mm;
+            }
+
+            @page {
+                size: A4 portrait;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Print Button -->
+    <div class="no-print-bar no-print">
+        <button class="btn-action" onclick="window.print()">
+            🖨️ Print / Save as PDF
+        </button>
+    </div>
+
+    <!-- ================= PAGE 1: TITLE COVER PAGE ================= -->
+    <div class="report-page cover-page">
+        <div>
+            <div class="cover-title">PROJECT REPORT</div>
+            <div class="cover-on">ON</div>
+            <div class="cover-project-name">“E-Commerce Web Application”</div>
+            <div style="font-size: 13pt; font-weight: bold; margin-top: -8px;">(NEXUS TECH STORE)</div>
+        </div>
+
+        <div>
+            <div style="font-size: 13pt; margin-bottom: 4px;">Submitted to</div>
+            <div style="font-size: 14pt; font-weight: bold;">Rashtrasant Tukadoji Maharaj Nagpur University,<br>NAGPUR</div>
+            <div class="cover-sub-info">
+                In partial fulfilment of the requirement of<br>
+                <strong>Bachelor of Computer Applications (BCA) (AICTE) Semester – V Examination</strong>
+            </div>
+        </div>
+
+        <div>
+            <div style="font-size: 12.5pt; font-style: italic;">Submitted by</div>
+            <div class="cover-student-name">Priyanshu Suryawanshi</div>
+        </div>
+
+        <div class="cover-guides-grid">
+            <div class="guide-box">
+                <em>Under the guidance of</em>
+                <strong>Prof. Prafulla Karande</strong>
+                HOD<br>
+                (Computer Science &amp; Application)
+            </div>
+            <div class="guide-box">
+                <em>Under the co-guidance of</em>
+                <strong>Dr. Prajkta Ratnaparkhi</strong>
+                Assistant Professor<br>
+                (Computer Science &amp; Application)
+            </div>
+        </div>
+
+        <div>
+            <!-- College Emblem SVG -->
+            <svg class="college-emblem" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="60" cy="60" r="56" stroke="#111" stroke-width="2" fill="#fff"/>
+                <circle cx="60" cy="60" r="48" stroke="#111" stroke-width="1.2" stroke-dasharray="3 2"/>
+                <path d="M60 22 C48 35 48 45 60 55 C72 45 72 35 60 22 Z" fill="#e5e7eb" stroke="#111" stroke-width="1.5"/>
+                <path d="M42 55 L78 55 L74 65 L46 65 Z" fill="#111"/>
+                <path d="M36 68 C48 64 60 67 60 74 C60 67 72 64 84 68 L84 82 C72 78 60 81 60 88 C60 81 48 78 36 82 Z" fill="#ffffff" stroke="#111" stroke-width="1.8"/>
+                <path d="M60 74 L60 88" stroke="#111" stroke-width="1.8"/>
+                <text x="60" y="104" font-family="'Times New Roman', serif" font-size="8" font-weight="bold" text-anchor="middle" fill="#111">विद्याधनं सर्वधनप्रधानम्</text>
+            </svg>
+
+            <div style="font-size: 12pt; line-height: 1.4;">
+                Late M.D Gandhe Memorial Education Society’s
+                <div class="cover-college-name">City Premier College, Nagpur</div>
+                Hindustan Colony, Samarth Nagar, Wardha Road<br>
+                Nagpur-440 015
+                <div style="font-size: 14pt; font-weight: bold; margin-top: 5px;">2026-27</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 2: CERTIFICATE ================= -->
+    <div class="report-page">
+        <div class="page-header">
+            <span>City Premier College, Nagpur</span>
+            <span>Project Certificate</span>
+        </div>
+
+        <div class="cert-header" style="margin-top: 25px;">
+            <div class="cert-society">Late M.D Gandhe Memorial Education Society’s</div>
+            <div class="cert-dept">Computer Science &amp; Application Department</div>
+            <div class="cert-college">City Premier College, Nagpur</div>
+            <div class="cert-title">CERTIFICATE</div>
+        </div>
+
+        <p style="font-size: 13pt; line-height: 1.8; margin-top: 20px;">
+            This is to certify that the Project report entitled <strong>“E-Commerce Web Application (NEXUS TECH)”</strong> is carried out and developed by <strong>Priyanshu Suryawanshi</strong> in partial fulfilment of the <strong>Bachelor of Computer Applications (BCA)</strong> Semester – V and submitted to <strong>Rashtrasant Tukadoji Maharaj Nagpur University, Nagpur</strong> under my guidance and supervision.
+        </p>
+
+        <p style="font-size: 13pt; line-height: 1.8; margin-top: 25px;">
+            To the best of my knowledge the matter presented in this report has not been presented earlier for similar degree.
+        </p>
+
+        <div style="margin-top: 65px; display: flex; justify-content: space-between; font-size: 12.5pt;">
+            <div>
+                <strong>Place:</strong> Nagpur<br>
+                <strong>Date:</strong> 13/10/2026
+            </div>
+            <div style="text-align: center;">
+                <div class="sign-line"></div><br>
+                <strong>Project Guide</strong><br>
+                <strong>Prof. Prafulla Karande</strong><br>
+                HOD (Computer Science &amp; Application)
+            </div>
+        </div>
+
+        <div style="margin-top: 60px; display: flex; justify-content: space-between; font-size: 12.5pt;">
+            <div style="text-align: center;">
+                <div class="sign-line"></div><br>
+                <strong>Project Co-Guide</strong><br>
+                <strong>Dr. Prajkta Ratnaparkhi</strong><br>
+                Assistant Professor
+            </div>
+            <div style="text-align: center;">
+                <div class="sign-line"></div><br>
+                <strong>Principal</strong><br>
+                <strong>Dr. Vinod Gawande</strong><br>
+                City Premier College, Nagpur
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>BCA Final Year (Semester V)</span>
+            <span>Certificate</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 3: DECLARATION ================= -->
+    <div class="report-page">
+        <div class="page-header">
+            <span>City Premier College, Nagpur</span>
+            <span>Declaration</span>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <div class="cert-title" style="margin: 0;">DECLARATION</div>
+        </div>
+
+        <div style="font-size: 13pt; line-height: 1.6; margin-bottom: 25px;">
+            <strong>To,</strong><br>
+            The Principal,<br>
+            City Premier College,<br>
+            Hindustan Colony, Wardha Road,<br>
+            Nagpur.<br><br>
+            <strong>Respected Sir,</strong>
+        </div>
+
+        <p style="font-size: 13pt; line-height: 1.8;">
+            I the undersigned, hereby declare that the Project work entitled <strong>“E-Commerce Web Application (NEXUS TECH)”</strong> submitted to <strong>Rashtrasant Tukadoji Maharaj Nagpur University, Nagpur</strong> is my independent work. This is my original work and has not been submitted anywhere for any degree. The system presented herein has not been duplicated from any other source.
+        </p>
+
+        <p style="font-size: 13pt; line-height: 1.8;">
+            I understand that any such copying is liable to be punished in any way the University authority may deem fit.
+        </p>
+
+        <p class="no-indent" style="margin-top: 30px;">
+            Thanking You.
+        </p>
+
+        <div style="margin-top: 70px; display: flex; justify-content: space-between; font-size: 12.5pt;">
+            <div>
+                <strong>Place:</strong> Nagpur<br>
+                <strong>Date:</strong> 13/10/2026
+            </div>
+            <div style="text-align: right;">
+                <strong>Yours Sincerely</strong><br><br><br>
+                <div class="sign-line" style="width: 190px;"></div><br>
+                <strong>Priyanshu Suryawanshi</strong><br>
+                BCA Semester – V
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>BCA Final Year (Semester V)</span>
+            <span>Declaration</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 4: ACKNOWLEDGEMENT ================= -->
+    <div class="report-page">
+        <div class="page-header">
+            <span>City Premier College, Nagpur</span>
+            <span>Acknowledgement</span>
+        </div>
+
+        <div style="text-align: center; margin: 25px 0;">
+            <div class="cert-title" style="margin: 0;">ACKNOWLEDGEMENT</div>
+        </div>
+
+        <p style="font-size: 13pt; line-height: 1.8;">
+            I wish to express my sincere thanks to many persons who helped me to develop my original project work.
+        </p>
+
+        <p style="font-size: 13pt; line-height: 1.8;">
+            At first, I express my sincere thanks to Principal <strong>Dr. Vinod Gawande</strong>, for providing the infrastructure and computer laboratory facilities without which it would have been impossible to complete this task.
+        </p>
+
+        <p style="font-size: 13pt; line-height: 1.8;">
+            My foremost thanks to, <strong>Prof. Prafulla Karande</strong>, Head of the Department who has helped me in completing this project work.
+        </p>
+
+        <p style="font-size: 13pt; line-height: 1.8;">
+            My Special thanks to <strong>Prof. Prafulla Karande</strong>, who has guided me for completing this project work, I take this opportunity to express my deep sense of gratitude and whole hearted thanks for his inspiration and guidance throughout the completion of this work.
+        </p>
+
+        <p style="font-size: 13pt; line-height: 1.8;">
+            I am thankful to my Co-Guide <strong>Dr. Prajkta Ratnaparkhi</strong> for her constant inspiration and guidance throughout the completion of this project.
+        </p>
+
+        <p style="font-size: 13pt; line-height: 1.8;">
+            I express my gratitude to all teaching and non-teaching staff of the Computer Science &amp; Application Department for their co-operation during the course. Finally, I would like to thank my friends who helped me during this project work.
+        </p>
+
+        <div style="margin-top: 70px; display: flex; justify-content: space-between; font-size: 12.5pt;">
+            <div>
+                <strong>Place:</strong> Nagpur<br>
+                <strong>Date:</strong> 13/10/2026
+            </div>
+            <div style="text-align: right;">
+                <div class="sign-line" style="width: 190px;"></div><br>
+                <strong>Priyanshu Suryawanshi</strong><br>
+                BCA Final Year
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>BCA Final Year (Semester V)</span>
+            <span>Acknowledgement</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 5: TABLE OF CONTENTS ================= -->
+    <div class="report-page">
+        <div class="page-header">
+            <span>E-Commerce Web Application (NEXUS TECH)</span>
+            <span>Contents</span>
+        </div>
+
+        <div style="text-align: center; margin: 15px 0 20px;">
+            <h1 class="chapter-title" style="text-align: center; display: inline-block;">Table of Contents</h1>
+        </div>
+
+        <table class="formal-table">
+            <thead>
+                <tr>
+                    <th style="width: 12%; text-align: center;">Sr. No.</th>
+                    <th style="width: 73%;">Topic</th>
+                    <th style="width: 15%; text-align: center;">Page No.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;"><strong>1.</strong></td>
+                    <td><strong>Introduction</strong><br>
+                        &nbsp;&nbsp;1.1 Project Introduction<br>
+                        &nbsp;&nbsp;1.2 Objectives of the Project<br>
+                        &nbsp;&nbsp;1.3 Scope and Duration
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;"><strong>1</strong></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><strong>2.</strong></td>
+                    <td><strong>System Overview &amp; Requirements</strong><br>
+                        &nbsp;&nbsp;2.1 Problem Statement<br>
+                        &nbsp;&nbsp;2.2 System Flow (How Django Works)<br>
+                        &nbsp;&nbsp;2.3 Hardware &amp; Software Requirements
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;"><strong>4</strong></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><strong>3.</strong></td>
+                    <td><strong>Project Development Activities</strong><br>
+                        &nbsp;&nbsp;3.1 Tasks Assigned<br>
+                        &nbsp;&nbsp;3.2 Weekly Development Work<br>
+                        &nbsp;&nbsp;3.3 Difficulties Faced and Solutions
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;"><strong>7</strong></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><strong>4.</strong></td>
+                    <td><strong>Technologies and Tools</strong><br>
+                        &nbsp;&nbsp;4.1 Front-end (HTML, CSS, JavaScript)<br>
+                        &nbsp;&nbsp;4.2 Back-end (Python and Django)<br>
+                        &nbsp;&nbsp;4.3 Database (SQLite3)<br>
+                        &nbsp;&nbsp;4.4 Why These Technologies Were Chosen
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;"><strong>12</strong></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><strong>5.</strong></td>
+                    <td><strong>Project Design and Implementation</strong><br>
+                        &nbsp;&nbsp;5.1 Use Case and User Actions<br>
+                        &nbsp;&nbsp;5.2 Step-by-Step Flow of Buying a Product<br>
+                        &nbsp;&nbsp;5.3 Database Design (Tables and Fields)<br>
+                        &nbsp;&nbsp;5.4 Application Routes (URLs)<br>
+                        &nbsp;&nbsp;5.5 Folder Structure<br>
+                        &nbsp;&nbsp;5.6 Core Source Code
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;"><strong>16</strong></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><strong>6.</strong></td>
+                    <td><strong>Testing and Results</strong><br>
+                        &nbsp;&nbsp;6.1 Test Cases<br>
+                        &nbsp;&nbsp;6.2 Key Features of the Web Application
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;"><strong>31</strong></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><strong>7.</strong></td>
+                    <td><strong>Conclusion and Future Scope</strong><br>
+                        &nbsp;&nbsp;7.1 Conclusion<br>
+                        &nbsp;&nbsp;7.2 Future Scope<br>
+                        &nbsp;&nbsp;7.3 Personal Learning Experience
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;"><strong>34</strong></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><strong>8.</strong></td>
+                    <td><strong>References</strong></td>
+                    <td style="text-align: center; vertical-align: middle;"><strong>37</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-footer">
+            <span>BCA Final Year (Semester V)</span>
+            <span>Table of Contents</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 6: CHAPTER 1 - INTRODUCTION ================= -->
+    <div class="report-page">
+        <div class="page-header">
+            <span>E-Commerce Web Application (NEXUS TECH)</span>
+            <span>Page 1</span>
+        </div>
+
+        <h1 class="chapter-title">1. INTRODUCTION</h1>
+
+        <h2 class="section-title">1.1 Project Introduction</h2>
+        <p>
+            Today, electronic commerce (E-Commerce) is widely used by people to purchase electronics, clothes, and everyday items online. Websites like Amazon and Flipkart have shown how easy it is to find products, add them to a cart, apply discount codes, and order them without visiting a physical store.
+        </p>
+        <p>
+            For a Bachelor of Computer Applications (BCA) student, developing an E-Commerce web application is a great practical experience. It helps connect classroom subjects like web design, database management (DBMS), and programming with a real working software application. A student learns how data travels from a web page to a server, gets saved in a database, and is shown back to the user.
+        </p>
+        <p>
+            This report describes the <strong>“E-Commerce Web Application (NEXUS TECH)”</strong> developed by <strong>Priyanshu Suryawanshi</strong>, a student of BCA Semester V at <strong>City Premier College, Nagpur</strong>, affiliated to <strong>Rashtrasant Tukadoji Maharaj Nagpur University (RTMNU)</strong>.
+        </p>
+        <p>
+            The project is built using <strong>Python</strong> and the <strong>Django</strong> web framework on the backend. The database used is <strong>SQLite3</strong>, which comes built-in with Python. The frontend pages are designed using <strong>HTML5</strong>, <strong>CSS3</strong>, and <strong>JavaScript</strong>.
+        </p>
+
+        <table class="formal-table">
+            <thead>
+                <tr>
+                    <th style="width: 35%;">Particular</th>
+                    <th style="width: 65%;">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Name of the student</strong></td><td>Priyanshu Suryawanshi</td></tr>
+                <tr><td><strong>Course</strong></td><td>Bachelor of Computer Applications (BCA), Semester V</td></tr>
+                <tr><td><strong>College</strong></td><td>City Premier College, Nagpur</td></tr>
+                <tr><td><strong>University</strong></td><td>Rashtrasant Tukadoji Maharaj Nagpur University, Nagpur</td></tr>
+                <tr><td><strong>Project Name</strong></td><td>E-Commerce Web Application (NEXUS TECH)</td></tr>
+                <tr><td><strong>Programming Language</strong></td><td>Python 3.11</td></tr>
+                <tr><td><strong>Web Framework</strong></td><td>Django 5.2</td></tr>
+                <tr><td><strong>Database</strong></td><td>SQLite3</td></tr>
+                <tr><td><strong>Frontend</strong></td><td>HTML, CSS, JavaScript, Font Awesome Icons</td></tr>
+                <tr><td><strong>Special Feature</strong></td><td>Discount Coupon (<code>PRI23</code>), Live Search, Cart Drawer</td></tr>
+                <tr><td><strong>Academic Year</strong></td><td>2026–27</td></tr>
+            </tbody>
+        </table>
+        <div class="table-caption">Table 1: Project at a glance</div>
+
+        <div class="page-footer">
+            <span>BCA Final Year (Semester V)</span>
+            <span>Page 1</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 7: CHAPTER 1 (CONT.) ================= -->
+    <div class="report-page">
+        <div class="page-header">
+            <span>E-Commerce Web Application (NEXUS TECH)</span>
+            <span>Page 2</span>
+        </div>
+
+        <h2 class="section-title">1.2 Objectives of the Project</h2>
+        <p>
+            The main goal of this project was to build a clean and user-friendly online shopping website where a customer can browse products, filter by categories, add items to a cart, apply a coupon code, and place an order.
+        </p>
+        <p class="no-indent">The specific objectives were:</p>
+        <ul>
+            <li>To design a responsive web page with a modern navigation bar and product grid.</li>
+            <li>To organize products into categories such as Smartphones, Laptops, Audio, Wearables, and Gaming.</li>
+            <li>To allow users to search products quickly with a live search box.</li>
+            <li>To build a slide-out shopping cart where users can change quantities, see the total price, and remove items.</li>
+            <li>To create a coupon discount system that gives a 20% discount when the coupon code <strong><code>PRI23</code></strong> is entered.</li>
+            <li>To create a simple checkout form where the user enters their delivery address and chooses a payment method (Card, UPI / QR, Cash on Delivery).</li>
+            <li>To generate a unique Order ID (e.g., <code>NX-12345</code>) for every order and allow the user to track their order status.</li>
+            <li>To use the built-in Django Admin panel so the store owner can easily add new products, change prices, and view customer orders.</li>
+        </ul>
+
+        <h2 class="section-title">1.3 Scope and Duration</h2>
+        <p>
+            The project was completed over a period of 4 weeks during Semester V. The work progressed step by step from planning the tables to designing the frontend and connecting the backend views.
+        </p>
+
+        <div class="diagram-box">
++-------------------------------------------------------------------------------+
+|                       PROJECT PROGRESSION TIMELINE                            |
++-------------------+-------------------+-------------------+-------------------+
+|      Week 1       |      Week 2       |      Week 3       |      Week 4       |
+|  Requirements &   | Database Models & | Backend Views &   | Cart Drawer, UI   |
+| Environment Setup |   Django Admin    |   API Endpoints   | Testing & Report  |
++-------------------+-------------------+-------------------+-------------------+
+        </div>
+        <div class="listing-caption">Figure 1: Project Timeline</div>
+
+        <div class="page-footer">
+            <span>BCA Final Year (Semester V)</span>
+            <span>Page 2</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 8: CHAPTER 2 - SYSTEM OVERVIEW ================= -->
+    <div class="report-page">
+        <div class="page-header">
+            <span>E-Commerce Web Application (NEXUS TECH)</span>
+            <span>Page 3</span>
+        </div>
+
+        <h1 class="chapter-title">2. SYSTEM OVERVIEW &amp; REQUIREMENTS</h1>
+
+        <h2 class="section-title">2.1 Problem Statement</h2>
+        <p>
+            When people want to buy electronics, visiting physical shops takes a lot of time, and comparing product prices and features is difficult. Many basic college projects only have static HTML pages where clicking a button reloads the whole page every time, which feels slow.
+        </p>
+        <p>
+            The NEXUS TECH e-commerce project solves this by showing all tech products in one clean place with prices and star ratings, letting users filter by category without reloading the whole page, and providing an instant slide-out cart so users can see their total bill immediately.
+        </p>
+
+        <h2 class="section-title">2.2 System Flow (How Django Works)</h2>
+        <p>
+            Django follows the <strong>MVT (Model - View - Template)</strong> pattern:
+        </p>
+
+        <div class="diagram-box">
+[ User in Browser ]
+       │
+       ▼  (1. Request sent to URL)
+[ urls.py ]
+       │
+       ▼  (2. Calls view function)
+[ views.py ] ──────────────┐
+       │                   │
+       ▼ (3. Reads data)   ▼ (4. Passes data)
+[ models.py / SQLite ]   [ index.html Template ]
+       │                   │
+       └─────────┬─────────┘
+                 ▼
+      [ HTML Page shown in Browser ]
+        </div>
+        <div class="listing-caption">Figure 2: MVT Flow Diagram</div>
+
+        <h2 class="section-title">2.3 Hardware &amp; Software Requirements</h2>
+        <table class="formal-table">
+            <thead>
+                <tr><th style="width: 35%;">Component</th><th style="width: 65%;">Specification</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Computer / Laptop</strong></td><td>Any PC with 4 GB RAM &amp; Intel i3 or AMD CPU</td></tr>
+                <tr><td><strong>Operating System</strong></td><td>Windows 10 / Windows 11</td></tr>
+                <tr><td><strong>Programming Language</strong></td><td>Python 3.11</td></tr>
+                <tr><td><strong>Web Framework</strong></td><td>Django 5.2</td></tr>
+                <tr><td><strong>Database</strong></td><td>SQLite3 (built into Python)</td></tr>
+                <tr><td><strong>Code Editor</strong></td><td>Visual Studio Code</td></tr>
+            </tbody>
+        </table>
+        <div class="table-caption">Table 2: Requirements</div>
+
+        <div class="page-footer">
+            <span>BCA Final Year (Semester V)</span>
+            <span>Page 3</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 9: CHAPTER 3 - ACTIVITIES ================= -->
+    <div class="report-page">
+        <div class="page-header">
+            <span>E-Commerce Web Application (NEXUS TECH)</span>
+            <span>Page 4</span>
+        </div>
+
+        <h1 class="chapter-title">3. PROJECT DEVELOPMENT ACTIVITIES</h1>
+
+        <h2 class="section-title">3.1 Tasks Assigned</h2>
+        <p>
+            The project development was divided into simple and achievable tasks:
+        </p>
+        <ol>
+            <li>Setting up the development folder, Python virtual environment, and creating the Django app.</li>
+            <li>Creating the database models for categories, products, coupons, orders, and order items.</li>
+            <li>Writing a seed script (<code>seed_db.py</code>) to automatically insert sample products into the database.</li>
+            <li>Writing view functions for the home page, category filtering, coupon code calculation, and order saving.</li>
+            <li>Designing the frontend layout: navigation dock, product cards, cart drawer, and checkout modal.</li>
+            <li>Testing all features and preparing the final project documentation.</li>
+        </ol>
+
+        <h2 class="section-title">3.2 Difficulties Faced and How They Were Solved</h2>
+        <table class="formal-table">
+            <thead>
+                <tr>
+                    <th style="width: 45%;">Difficulty</th>
+                    <th style="width: 55%;">How It Was Handled</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Filtering products without reloading the entire page.</td>
+                    <td>Used JavaScript <code>fetch()</code> to get product data from <code>/api/products/</code> and updated only the product cards.</td>
+                </tr>
+                <tr>
+                    <td>Validating coupon codes so users cannot cheat discounts.</td>
+                    <td>Checked the coupon code on the server side in Python (<code>views.py</code>) before returning the discounted price.</td>
+                </tr>
+                <tr>
+                    <td>Keeping cart items when the user reloads the browser.</td>
+                    <td>Stored the cart items in the browser's <code>localStorage</code> so items stay in the cart until ordered.</td>
+                </tr>
+                <tr>
+                    <td>Linking ordered items to a specific customer order.</td>
+                    <td>Created an <code>OrderItem</code> table connected to the <code>Order</code> table using a Foreign Key.</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="table-caption">Table 3: Difficulties Faced and Solutions</div>
+
+        <div class="page-footer">
+            <span>BCA Final Year (Semester V)</span>
+            <span>Page 4</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 10: CHAPTER 4 - TECHNOLOGIES ================= -->
+    <div class="report-page">
+        <div class="page-header">
+            <span>E-Commerce Web Application (NEXUS TECH)</span>
+            <span>Page 5</span>
+        </div>
+
+        <h1 class="chapter-title">4. TECHNOLOGIES AND TOOLS</h1>
+
+        <h2 class="section-title">4.1 Front-end Technologies</h2>
+        <p>
+            <strong>HTML5:</strong> Used to create the structural layout of the web page, including the header, product section, forms, and dialog modals.
+        </p>
+        <p>
+            <strong>CSS3:</strong> Used to style the website with pleasant colors, rounded buttons, grid layout for product cards, and dark/light mode toggle.
+        </p>
+        <p>
+            <strong>JavaScript:</strong> Used for interactive behaviour such as opening the cart drawer, calculating item quantities, and searching products as the user types.
+        </p>
+
+        <h2 class="section-title">4.2 Back-end: Python &amp; Django</h2>
+        <p>
+            <strong>Python:</strong> Python was selected because of its clean, readable syntax which makes backend development easy to understand for beginners.
+        </p>
+        <p>
+            <strong>Django:</strong> Django is a popular Python framework that includes built-in security, URL routing, and a ready-made administrative panel.
+        </p>
+
+        <h2 class="section-title">4.3 Database: SQLite3</h2>
+        <p>
+            <strong>SQLite3:</strong> A lightweight database that stores all data in a single file called <code>db.sqlite3</code> inside the project folder. No separate database server installation is needed.
+        </p>
+
+        <h2 class="section-title">4.4 Why These Technologies Were Chosen</h2>
+        <ul>
+            <li><strong>Beginner friendly:</strong> Python and Django are straightforward to learn and write.</li>
+            <li><strong>Zero installation cost:</strong> All tools are open source and free to use.</li>
+            <li><strong>Complete offline support:</strong> The project runs locally on the computer without requiring an active internet connection.</li>
+            <li><strong>Built-in Admin:</strong> The Django Admin allows teachers and examiners to easily inspect database records.</li>
+        </ul>
+
+        <div class="page-footer">
+            <span>BCA Final Year (Semester V)</span>
+            <span>Page 5</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 11: CHAPTER 5 - DESIGN & MODELS ================= -->
+    <div class="report-page">
+        <div class="page-header">
+            <span>E-Commerce Web Application (NEXUS TECH)</span>
+            <span>Page 6</span>
+        </div>
+
+        <h1 class="chapter-title">5. PROJECT DESIGN AND IMPLEMENTATION</h1>
+
+        <h2 class="section-title">5.1 Database Design (Tables)</h2>
+        <p>
+            The project stores data in five simple tables in the SQLite database:
+        </p>
+
+        <table class="formal-table">
+            <thead>
+                <tr><th>Column Name</th><th>Data Type</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><code>id</code></td><td>Integer (Primary Key)</td><td>Unique Category ID</td></tr>
+                <tr><td><code>name</code></td><td>CharField(100)</td><td>Category Name (e.g. Laptops)</td></tr>
+                <tr><td><code>slug</code></td><td>SlugField(100)</td><td>URL identifier (e.g. laptops)</td></tr>
+                <tr><td><code>icon</code></td><td>CharField(50)</td><td>Icon name (e.g. fa-laptop)</td></tr>
+            </tbody>
+        </table>
+        <div class="table-caption">Table 4: Category Table (store_category)</div>
+
+        <table class="formal-table">
+            <thead>
+                <tr><th>Column Name</th><th>Data Type</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><code>id</code></td><td>Integer (Primary Key)</td><td>Unique Product ID</td></tr>
+                <tr><td><code>name</code></td><td>CharField(200)</td><td>Product Name (e.g. iPhone 15 Pro)</td></tr>
+                <tr><td><code>category</code></td><td>ForeignKey</td><td>Links to Category table</td></tr>
+                <tr><td><code>price</code></td><td>DecimalField</td><td>Selling price in dollars</td></tr>
+                <tr><td><code>rating</code></td><td>DecimalField</td><td>Average star rating (e.g. 4.9)</td></tr>
+                <tr><td><code>stock_count</code></td><td>PositiveIntegerField</td><td>Items in stock</td></tr>
+                <tr><td><code>image</code></td><td>CharField(500)</td><td>Image link</td></tr>
+                <tr><td><code>description</code></td><td>TextField</td><td>Details of the product</td></tr>
+            </tbody>
+        </table>
+        <div class="table-caption">Table 5: Product Table (store_product)</div>
+
+        <table class="formal-table">
+            <thead>
+                <tr><th>Column Name</th><th>Data Type</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><code>order_id</code></td><td>CharField(50)</td><td>Tracking ID (e.g. NX-48201)</td></tr>
+                <tr><td><code>customer_name</code></td><td>CharField(150)</td><td>Buyer's name</td></tr>
+                <tr><td><code>email</code></td><td>EmailField</td><td>Customer email</td></tr>
+                <tr><td><code>total_amount</code></td><td>DecimalField</td><td>Total amount paid</td></tr>
+                <tr><td><code>status</code></td><td>CharField(50)</td><td>Order status (e.g. In Transit)</td></tr>
+            </tbody>
+        </table>
+        <div class="table-caption">Table 6: Order Table (store_order)</div>
+
+        <div class="page-footer">
+            <span>BCA Final Year (Semester V)</span>
+            <span>Page 6</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 12: CHAPTER 5 (CONT.) CODE ================= -->
+    <div class="report-page">
+        <div class="page-header">
+            <span>E-Commerce Web Application (NEXUS TECH)</span>
+            <span>Page 7</span>
+        </div>
+
+        <h2 class="section-title">5.2 Database Code (`store/models.py`)</h2>
+        <pre class="code-block">
+from django.db import models
+
+# 1. Category Table
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True)
+    icon = models.CharField(max_length=50, default='fa-boxes-stacked')
+
+    def __str__(self):
+        return self.name
+
+# 2. Product Table
+class Product(models.Model):
+    name = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True)
+    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    original_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    rating = models.DecimalField(max_digits=3, decimal_places=1, default=5.0)
+    stock_count = models.PositiveIntegerField(default=15)
+    in_stock = models.BooleanField(default=True)
+    image = models.CharField(max_length=500)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+# 3. Coupon Table
+class Coupon(models.Model):
+    code = models.CharField(max_length=50, unique=True)
+    discount = models.DecimalField(max_digits=6, decimal_places=2)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.code
+
+# 4. Order Table
+class Order(models.Model):
+    order_id = models.CharField(max_length=50, unique=True)
+    customer_name = models.CharField(max_length=150)
+    email = models.EmailField()
+    address = models.TextField()
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=50, default='In Transit')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Order #{self.order_id} - {self.customer_name}"
+        </pre>
+        <div class="listing-caption">Listing 1: Database Models (store/models.py)</div>
+
+        <div class="page-footer">
+            <span>BCA Final Year (Semester V)</span>
+            <span>Page 7</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 13: CHAPTER 5 (CONT.) VIEWS ================= -->
+    <div class="report-page">
+        <div class="page-header">
+            <span>E-Commerce Web Application (NEXUS TECH)</span>
+            <span>Page 8</span>
+        </div>
+
+        <h2 class="section-title">5.3 View Functions (`store/views.py`)</h2>
+        <pre class="code-block">
+import json, random
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import Category, Product, Coupon, Order, OrderItem
+
+# 1. Home Page View
+def index(request):
+    categories = Category.objects.all()
+    products = Product.objects.filter(in_stock=True)
+    coupons = Coupon.objects.filter(active=True)
+    return render(request, 'store/index.html', {
+        'categories': categories,
+        'products': products,
+        'coupons': coupons,
+    })
+
+# 2. Get Products API (Filtering & Search)
+def api_products(request):
+    category_slug = request.GET.get('category', 'all')
+    search_query = request.GET.get('search', '').strip()
+
+    products = Product.objects.filter(in_stock=True)
+    if category_slug != 'all':
+        products = products.filter(category__slug=category_slug)
+    if search_query:
+        products = products.filter(name__icontains=search_query)
+
+    data = []
+    for p in products:
+        data.append({
+            'id': p.id,
+            'name': p.name,
+            'price': float(p.price),
+            'rating': float(p.rating),
+            'image': p.image,
+            'category': p.category.slug,
+        })
+    return JsonResponse({'products': data})
+
+# 3. Apply Coupon API
+@csrf_exempt
+def api_apply_coupon(request):
+    if request.method == 'POST':
+        body = json.loads(request.body)
+        code = body.get('code', '').strip().upper()
+        coupon = Coupon.objects.filter(code=code, active=True).first()
+        if not coupon:
+            return JsonResponse({'success': False, 'message': 'Invalid coupon code.'})
+        return JsonResponse({
+            'success': True,
+            'coupon': {'code': coupon.code, 'discount': float(coupon.discount)}
+        })
+    return JsonResponse({'error': 'POST required'}, status=405)
+        </pre>
+        <div class="listing-caption">Listing 2: View Controllers (store/views.py)</div>
+
+        <div class="page-footer">
+            <span>BCA Final Year (Semester V)</span>
+            <span>Page 8</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 14: CHAPTER 6 - TESTING ================= -->
+    <div class="report-page">
+        <div class="page-header">
+            <span>E-Commerce Web Application (NEXUS TECH)</span>
+            <span>Page 9</span>
+        </div>
+
+        <h1 class="chapter-title">6. TESTING AND RESULTS</h1>
+
+        <h2 class="section-title">6.1 Test Cases</h2>
+        <p>
+            The application was thoroughly tested locally to verify that every action functions properly:
+        </p>
+
+        <table class="formal-table">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">Test ID</th>
+                    <th style="width: 35%;">Action Performed</th>
+                    <th style="width: 35%;">Expected Output</th>
+                    <th style="width: 15%;">Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>TC-01</strong></td>
+                    <td>Open <code>http://127.0.0.1:8000/</code></td>
+                    <td>Store homepage loads with products and categories</td>
+                    <td><strong style="color: green;">PASS</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>TC-02</strong></td>
+                    <td>Click on "Laptops" category</td>
+                    <td>Only laptop products should be shown on screen</td>
+                    <td><strong style="color: green;">PASS</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>TC-03</strong></td>
+                    <td>Type "Watch" in search box</td>
+                    <td>Smartwatches matching "Watch" appear in real-time</td>
+                    <td><strong style="color: green;">PASS</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>TC-04</strong></td>
+                    <td>Click "Add to Cart"</td>
+                    <td>Cart drawer opens and item count increases</td>
+                    <td><strong style="color: green;">PASS</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>TC-05</strong></td>
+                    <td>Enter coupon code <code>PRI23</code></td>
+                    <td>20% discount is deducted from order subtotal</td>
+                    <td><strong style="color: green;">PASS</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>TC-06</strong></td>
+                    <td>Fill details and click "Place Order"</td>
+                    <td>Order saved in SQLite and Order ID generated (e.g. <code>NX-52319</code>)</td>
+                    <td><strong style="color: green;">PASS</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>TC-07</strong></td>
+                    <td>Enter Order ID in "Track Order"</td>
+                    <td>Shows order status "In Transit" with buyer details</td>
+                    <td><strong style="color: green;">PASS</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>TC-08</strong></td>
+                    <td>Open <code>/admin/</code> and log in</td>
+                    <td>Admin panel opens to view products, orders, and coupons</td>
+                    <td><strong style="color: green;">PASS</strong></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="table-caption">Table 7: Test Cases and Results</div>
+
+        <h2 class="section-title">6.2 Key Features of the Web Application</h2>
+        <ul>
+            <li><strong>Interactive Product Catalog:</strong> Clean product cards displaying images, prices, ratings, and stock status.</li>
+            <li><strong>Live Filtering and Search:</strong> Instant category filter buttons and keyboard shortcut (<code>/</code>) for live search.</li>
+            <li><strong>Working Cart &amp; Coupon:</strong> Slide-out cart drawer with dynamic price calculation and 20% discount voucher (<code>PRI23</code>).</li>
+            <li><strong>Order Tracking:</strong> Live status checking for every placed order.</li>
+            <li><strong>Django Admin:</strong> Complete backend interface for the store owner.</li>
+        </ul>
+
+        <div class="page-footer">
+            <span>BCA Final Year (Semester V)</span>
+            <span>Page 9</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 15: CHAPTER 7 - CONCLUSION ================= -->
+    <div class="report-page">
+        <div class="page-header">
+            <span>E-Commerce Web Application (NEXUS TECH)</span>
+            <span>Page 10</span>
+        </div>
+
+        <h1 class="chapter-title">7. CONCLUSION AND FUTURE SCOPE</h1>
+
+        <h2 class="section-title">7.1 Conclusion</h2>
+        <p>
+            The <strong>E-Commerce Web Application (NEXUS TECH)</strong> was successfully planned, developed, and tested for the BCA Semester V project curriculum at City Premier College, Nagpur.
+        </p>
+        <p>
+            During this project, I learned how to build a web application using Python and Django. I understood how the frontend (HTML, CSS, JavaScript) communicates with the backend server, how data is saved and retrieved from a database using Django models, and how to create a working shopping cart and checkout system.
+        </p>
+        <p>
+            The project works smoothly on a local computer and fulfills all requirements set by the department.
+        </p>
+
+        <h2 class="section-title">7.2 Future Scope</h2>
+        <p class="no-indent">In the future, the project can be expanded with:</p>
+        <ul>
+            <li><strong>Online Payment Gateway:</strong> Adding real payment options like UPI, Razorpay, or Paytm.</li>
+            <li><strong>User Login and Sign Up:</strong> Letting customers create accounts to save their order history and wishlist.</li>
+            <li><strong>Email Receipt:</strong> Automatically sending order confirmation emails to the customer.</li>
+            <li><strong>Hosting Online:</strong> Deploying the website on a cloud server so anyone on the internet can use it.</li>
+        </ul>
+
+        <h2 class="section-title">7.3 Personal Learning Experience</h2>
+        <p>
+            Building this project was a very rewarding experience. It helped me understand how real websites work from front to back, how to write clean Python code using the Django framework, how to design responsive web pages using CSS and JavaScript, and how to find and fix errors (debugging) when something doesn't work as expected.
+        </p>
+        <p>
+            I am confident in explaining every part of this project to my teachers and classmates.
+        </p>
+
+        <div class="page-footer">
+            <span>BCA Final Year (Semester V)</span>
+            <span>Page 10</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 16: CHAPTER 8 - REFERENCES ================= -->
+    <div class="report-page">
+        <div class="page-header">
+            <span>E-Commerce Web Application (NEXUS TECH)</span>
+            <span>Page 11</span>
+        </div>
+
+        <h1 class="chapter-title">8. REFERENCES</h1>
+
+        <ol style="line-height: 1.8; margin-top: 25px; font-size: 13pt;">
+            <li><strong>Python Official Documentation:</strong> https://docs.python.org/3/</li>
+            <li><strong>Django Web Framework Documentation:</strong> https://docs.djangoproject.com/</li>
+            <li><strong>W3Schools Online Web Tutorials:</strong> https://www.w3schools.com/</li>
+            <li><strong>MDN Web Docs (HTML, CSS, JavaScript):</strong> https://developer.mozilla.org/</li>
+            <li><strong>Font Awesome Icons:</strong> https://fontawesome.com/</li>
+            <li><strong>College Project Guidance &amp; Lecture Notes:</strong> Department of Computer Science &amp; Application, City Premier College, Nagpur.</li>
+            <li><strong>Project Source Code:</strong> <em>E-Commerce Web Application (NEXUS TECH) - manage.py, models.py, views.py, urls.py, index.html.</em></li>
+        </ol>
+
+        <div style="margin-top: 100px; text-align: center; font-size: 13pt;">
+            <p class="no-indent"><strong>*** END OF REPORT ***</strong></p>
+        </div>
+
+        <div class="page-footer">
+            <span>BCA Final Year (Semester V)</span>
+            <span>Page 11</span>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,6 +1,23 @@
+"""
+NEXUS TECH - Database Models (store/models.py)
+---------------------------------------------
+This file defines the database structure using Django ORM.
+Each Python class corresponds to a database table:
+  1. Category   - Groups products (e.g., Audio, Smartphones, Laptops)
+  2. Product    - Tech gadget items with price, rating, and stock
+  3. Coupon     - Discount promotional codes (e.g., PRI23)
+  4. Order      - Customer checkout orders with shipping and totals
+  5. OrderItem  - Individual products linked to an Order
+"""
+
 from django.db import models
 
+
+# ==============================================================================
+# 1. CATEGORY MODEL
+# ==============================================================================
 class Category(models.Model):
+    """Represents a product category (e.g. Audio, Smartphones)."""
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
     icon = models.CharField(max_length=50, default='fa-boxes-stacked')
@@ -12,7 +29,11 @@ class Category(models.Model):
         return self.name
 
 
+# ==============================================================================
+# 2. PRODUCT MODEL
+# ==============================================================================
 class Product(models.Model):
+    """Represents a tech gadget product in the store catalog."""
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     tagline = models.CharField(max_length=255, blank=True)
@@ -34,17 +55,23 @@ class Product(models.Model):
 
     @property
     def discount_percentage(self):
+        """Calculates discount percentage if an original price is provided."""
         if self.original_price and self.original_price > self.price:
             return round(((self.original_price - self.price) / self.original_price) * 100)
         return 0
 
 
+# ==============================================================================
+# 3. COUPON MODEL
+# ==============================================================================
 class Coupon(models.Model):
+    """Stores promotional discount codes like PRI23."""
     COUPON_TYPES = (
         ('percent', 'Percentage (%)'),
         ('fixed', 'Fixed Amount ($)'),
         ('shipping', 'Free Shipping'),
     )
+
     code = models.CharField(max_length=50, unique=True)
     discount = models.DecimalField(max_digits=6, decimal_places=2)
     discount_type = models.CharField(max_length=20, choices=COUPON_TYPES, default='percent')
@@ -56,7 +83,11 @@ class Coupon(models.Model):
         return f"{self.code} ({self.discount} {self.discount_type})"
 
 
+# ==============================================================================
+# 4. ORDER MODEL
+# ==============================================================================
 class Order(models.Model):
+    """Stores customer orders and checkout information."""
     STATUS_CHOICES = (
         ('Processing', 'Processing'),
         ('Packed', 'Packed & Sealed'),
@@ -83,7 +114,11 @@ class Order(models.Model):
         return f"Order #{self.order_id} - {self.customer_name}"
 
 
+# ==============================================================================
+# 5. ORDER ITEM MODEL
+# ==============================================================================
 class OrderItem(models.Model):
+    """Stores individual line items within an Order."""
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
     product_name = models.CharField(max_length=200)
